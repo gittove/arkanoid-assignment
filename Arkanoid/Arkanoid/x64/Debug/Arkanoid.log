@@ -1,0 +1,14 @@
+﻿  ball.cpp
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(5,24): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(6,26): warning C4305: 'initializing': truncation from 'double' to 'float'
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(10,12): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(11,12): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(22,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(23,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(26,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(27,12): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(34,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(33,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(32,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(31,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Arkanoid.vcxproj -> C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\x64\Debug\Arkanoid.exe
