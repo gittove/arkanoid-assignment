@@ -18,3 +18,6 @@ void Engine::do_delta_time()
 
 	delta_time = (float)delta_ticks / SDL_GetPerformanceFrequency ();
 }
+
+
+

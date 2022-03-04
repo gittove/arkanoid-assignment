@@ -7,8 +7,8 @@ const float TAU = 6.28318;
 
 void Ball::update ()
 {
-	y += 0.05 * delta_time;
-	x += 0.05 * delta_time;
+	pos.y += 0.05 * delta_time;
+	pos.x += 0.05 * delta_time;
 }
 
 void Ball::draw(Ball& ball)
@@ -28,10 +28,10 @@ void Ball::draw(Ball& ball)
 
 		SDL_SetRenderDrawColor (render, 255, 200, 200, 255);
 		SDL_RenderDrawLine (render,
-			x1 * ball.radius + ball.x,
-			y1 * ball.radius + ball.y,
-			x2 * ball.radius + ball.x,
-			y2 * ball.radius + ball.y);
+			x1 * ball.radius + ball.pos.x,
+			y1 * ball.radius + ball.pos.y,
+			x2 * ball.radius + ball.pos.x,
+			y2 * ball.radius + ball.pos.y);
 	}
 }
 
