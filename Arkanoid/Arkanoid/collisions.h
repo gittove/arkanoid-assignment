@@ -1,18 +1,15 @@
 #pragma once
-#include "ball.h"
 #include "player.h"
 
 struct Hit
 {
-	float normal;
+	tove::Vector2 normal;
 	tove::Vector2 pos;
 
-	Hit (float n, float x, float y) : normal{ n }, pos{ x, y }
+	Hit (float n_x, float n_y, float x, float y) : normal{ n_x, n_y }, pos{ x, y }
 	{
 	}
 };
 
-int sign (int value);
-bool box_intersect (const Player& a, const Player& b);
-bool ball_intersect (const Ball& a, const Ball& b);
-Hit intersect_pos (float px, float py);
+Hit intersect_pos (const tove::Vector2& a_pos, const tove::Vector2& b_pos);
+bool aabb_intersect (const colliding_component& a, const colliding_component& b);

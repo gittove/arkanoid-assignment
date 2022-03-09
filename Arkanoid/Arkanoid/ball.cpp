@@ -1,20 +1,28 @@
-#pragma once
 #include "ball.h"
-#include "engine.h"
-
-const float PI = 3.1415;
-const float TAU = 6.28318;
+#include <iostream>
 
 void Ball::update ()
 {
-	pos.y += 0.05 * delta_time;
-	pos.x += 0.05 * delta_time;
+	const float add_x = velocity.x * delta_time * speed;
+	const float add_y = velocity.y * delta_time * speed;
+
+	pos.y += add_y;
+	pos.x += add_x;
+	//if (pos->x + dx < 0 || pos->x + dx >= 640 || pos->y + dy < 0 || pos->y + dy >= 480)
+	/*if(pos_x < 0 || pos_x >= 640 || pos_y < 0 || pos_y >= 480)
+	{
+		pos_x = clamp (pos_x, 0, 640);
+		pos_y = clamp (pos_y, 0, 480);
+	}*/
+
+	//std::cout << "position x: " << pos_x << std::endl << "position y: " << pos_y << std::endl;
+	draw ();
 }
 
-void Ball::draw(Ball& ball)
+void Ball::draw()
 {
 	int resolution = 10;
-	float step = (2 * PI) / resolution;
+	float step = (TAU) / resolution;
 
 	for (int i = 0; i < resolution; ++i)
 	{
@@ -28,10 +36,10 @@ void Ball::draw(Ball& ball)
 
 		SDL_SetRenderDrawColor (render, 255, 200, 200, 255);
 		SDL_RenderDrawLine (render,
-			x1 * ball.radius + ball.pos.x,
-			y1 * ball.radius + ball.pos.y,
-			x2 * ball.radius + ball.pos.x,
-			y2 * ball.radius + ball.pos.y);
+			x1 * width + pos.x,
+			y1 * height + pos.y,
+			x2 * width + pos.x,
+			y2 * height + pos.y);
 	}
 }
 

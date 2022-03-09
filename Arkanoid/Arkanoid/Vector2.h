@@ -10,10 +10,10 @@ namespace tove
 		{
 		}
 
-		~Vector2 ()
+		/*~Vector2 ()
 		{
 			delete this;
-		}
+		}*/
 
 		Vector2 operator+(const Vector2* r)
 		{
@@ -48,6 +48,55 @@ namespace tove
 			float tempy = abs (y) / m;
 
 			return {tempx, tempy};
+		}*/
+	};
+	struct Vector2Int
+	{
+		int x{};
+		int y{};
+
+		Vector2Int (int a, int b)
+		{
+			x = a;
+			y = b;
+		}
+
+		/*~Vector2Int ()
+		{
+			delete this;
+		}*/
+
+		Vector2Int operator+(Vector2Int* r)
+		{
+			return {
+			x += r->x,
+			y += r->y };
+		}
+
+		Vector2Int operator=(Vector2Int* r)
+		{
+			return {
+			x = r->x,
+			y = r->y };
+		}
+
+		Vector2Int operator*(int scalar)
+		{
+			return{
+			x * scalar,
+			y * scalar };
+		}
+
+		/*float dot (Vector2Int* r)
+		{
+			return (x * r->x) + (y * r->y);
+		}
+		Vector2Int normalized ()
+		{
+			float m = sqrt (x * x + y * y);
+			int tempx = abs (x) / m;
+			int tempy = abs (y) / m;
+			return Vector2Int (tempx, tempy);
 		}*/
 	};
 }

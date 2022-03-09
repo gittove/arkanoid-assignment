@@ -1,17 +1,18 @@
 #pragma once
 #include "Vector2.h"
+#include "engine.h"
+#include "collidingcomponent.h"
+#include "maths.h"
 
-struct Ball
+struct Ball : colliding_component
 {
-	tove::Vector2 pos;
-	float radius;
-	float y_dir, x_dir;
+	tove::Vector2Int velocity;
+	float speed;
 
-	Ball(float x, float y, float rad) : pos{x, y}, radius{rad}, y_dir{1}, x_dir{1}
+	Ball (float x, float y, float rad) : colliding_component (x, y, rad, rad), velocity{ 1, 1 }, speed{ 80.f }
 	{
-		
 	}
 
-	void update ();
-	void draw (Ball& ball);
+	void update () override;
+	void draw ();
 };

@@ -1,46 +1,39 @@
 #include "collisions.h"
-#include <math.h>
+#include <iostream>
+#include "maths.h"
+#include "AABB.h"
 
-int sign (int value) { if (value < 0) return 0; else return 1; }
-
-Hit intersect_pos (tove::Vector2 a_pos, tove::Vector2 b_pos)
+Hit intersect_pos (const tove::Vector2& a_pos, const tove::Vector2& b_pos)
 {
-
 	const float dx = b_pos.x - a_pos.x;
-	const float px = (b_pos.x / 2 + a_pos.x / 2) - abs (dx);
+	const float px = (b_pos.x / 2 + a_pos.x / 2) - absvalue (dx);
 
 	const float dy = b_pos.y - a_pos.y;
-	const float py = (b_pos.y / 2 + a_pos.x) - abs (dy);
+	const float py = (b_pos.y / 2 + a_pos.y) - absvalue (dy);
 
 	if (px < py)
 	{
 		const float sx = sign (dx);
-		return {sx, a_pos.x + a_pos.x * sx, b_pos.y};
+		return {1, -1, a_pos.x + a_pos.x * sx, b_pos.y};
 	}
-	else
-	{
-		const float sy = sign (dy);
-		return { sy, b_pos.x, a_pos.y + a_pos.y / 2 };
-	}
+
+	const float sy = sign (dy);
+	return { -1, 1, b_pos.x, a_pos.y + a_pos.y / 2 };
 }
 
-bool ball_intersect (const Ball& a, const Ball& b)
+bool aabb_intersect (const colliding_component& a, const colliding_component& b)
 {
-	float dx = b.pos.x - a.pos.x;
-	float dy = b.pos.y - a.pos.y;
+	AABB aabb_a{ a.pos, a.width, a.height };
+	AABB aabb_b{ b.pos, b.width, b.height };
+
+	float clamped_x = clamp (b.pos.x, aabb_a.x_min, aabb_a.x_max);
+	float clamped_y = clamp (b.pos.y, aabb_a.y_min, aabb_a.y_max);
+
+	float dx = b.pos.x - clamped_x;
+	float dy = b.pos.y - clamped_y;
 
 	float dist_sqrd = dx * dx + dy * dy;
 	float dist = sqrt (dist_sqrd);
 
-	float radius_sum = a.radius + b.radius;
-	return dist < radius_sum;
+	return dist < b.width || dist < b.height;
 }
-
-bool box_intersect (const Player& a, const Player& b)
-{
-	return (a.x_max > b.x_min &&
-		b.x_max > a.x_min &&
-		a.y_max > b.y_min &&
-		b.y_max > a.y_min);
-}
-
