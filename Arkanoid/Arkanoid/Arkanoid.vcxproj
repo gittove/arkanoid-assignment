@@ -146,6 +146,7 @@
     <ClCompile Include="brick.cpp" />
     <ClCompile Include="collisions.cpp" />
     <ClCompile Include="engine.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="maths.cpp" />
     <ClCompile Include="player.cpp" />
@@ -153,13 +154,16 @@
   <ItemGroup>
     <ClInclude Include="AABB.h" />
     <ClInclude Include="ball.h" />
+    <ClInclude Include="bottom.h" />
     <ClInclude Include="brick.h" />
     <ClInclude Include="collidingcomponent.h" />
     <ClInclude Include="collisions.h" />
     <ClInclude Include="engine.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Vector2.h" />
+    <ClInclude Include="borders.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SDL2.dll" />

@@ -1,6 +1,8 @@
 #include "engine.h"
 #include "player.h"
 
+#include "game.h"
+
 void Player::update()
 {
 	if (keys[SDL_SCANCODE_LEFT] || keys[SDL_SCANCODE_A])

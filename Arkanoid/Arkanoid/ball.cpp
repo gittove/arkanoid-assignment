@@ -1,21 +1,18 @@
 #include "ball.h"
 #include <iostream>
 
+#include "collisions.h"
+#include "engine.h"
+#include "game.h"
+#include "maths.h"
+
 void Ball::update ()
 {
-	const float add_x = velocity.x * delta_time * speed;
-	const float add_y = velocity.y * delta_time * speed;
+	if (!alive)
+		return;
 
-	pos.y += add_y;
-	pos.x += add_x;
-	//if (pos->x + dx < 0 || pos->x + dx >= 640 || pos->y + dy < 0 || pos->y + dy >= 480)
-	/*if(pos_x < 0 || pos_x >= 640 || pos_y < 0 || pos_y >= 480)
-	{
-		pos_x = clamp (pos_x, 0, 640);
-		pos_y = clamp (pos_y, 0, 480);
-	}*/
-
-	//std::cout << "position x: " << pos_x << std::endl << "position y: " << pos_y << std::endl;
+	calculate_pos ();
+	sweep ();
 	draw ();
 }
 
@@ -42,4 +39,41 @@ void Ball::draw()
 			y2 * height + pos.y);
 	}
 }
+
+void Ball::calculate_pos()
+{
+	next_pos.x = speed * delta_time * velocity.x;
+	next_pos.y = speed * delta_time * velocity.y;
+}
+
+void Ball::sweep()
+{
+	for (int i = 1; i < colliding_components.size (); ++i)
+	{
+		if (aabb_intersect (*colliding_components[i], *this))
+		{
+			std::cout << "boink" << std::endl;
+			colliding_components[i]->on_collision ();
+
+			Hit hit = intersect_pos (colliding_components[i]->pos, pos);
+			if (colliding_components[i]->type == BRICK)
+			{
+				colliding_components.erase (colliding_components.begin () + i);
+			}
+			if (colliding_components[i]->type == BOTTOM)
+			{
+				std::cout << "game over:/ oof bro, that's really rough. i'm here if u need to talk" << std::endl;
+				alive = false;
+			}
+			velocity.x *= hit.normal.x;
+			velocity.y *= hit.normal.y;
+
+			calculate_pos ();
+		}
+	}
+	pos.x += next_pos.x;
+	pos.y += next_pos.y;
+}
+
+
 

@@ -36,6 +36,14 @@ namespace tove
 			y * scalar };
 		}
 
+		bool operator==(const Vector2* r)
+		{
+			if (x == r->x && y == r->y)
+				return true;
+
+			return false;
+		}
+
 		/*float dot (Vector2* l, Vector2* r)
 		{
 			return (l->x * r->x) + (l->y * r->y);
@@ -85,6 +93,14 @@ namespace tove
 			return{
 			x * scalar,
 			y * scalar };
+		}
+
+		bool operator==(const Vector2Int* r)
+		{
+			if (x == r->x && y == r->y)
+				return true;
+
+			return false;
 		}
 
 		/*float dot (Vector2Int* r)

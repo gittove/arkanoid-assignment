@@ -1,4 +1,2 @@
-﻿  engine.cpp
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\engine.cpp(36,34): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\engine.cpp(36,31): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+﻿  player.cpp
   Arkanoid.vcxproj -> C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\x64\Debug\Arkanoid.exe

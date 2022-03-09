@@ -1,10 +1,9 @@
 #include <iostream>
-
+#include "game.h"
 #include "ball.h"
 #include "engine.h"
 #include "player.h"
-#include "collisions.h"
- 
+
 int main (int argc, char* argv[])
 {
 	SDL_Init (SDL_INIT_EVERYTHING);
@@ -14,12 +13,13 @@ int main (int argc, char* argv[])
 
 	bool running = true;
 	Player player(275.f, 350.f, 200.f, 8.f, 32.f);
-	Ball ball(275.f, 150.f, 7);
+	Ball ball{ 275.f, 150.f, 7 };
 	Engine engine;
-	//const Engine* engine_ptr = &engine;
-	engine.add_collidable (&player);
-	engine.add_collidable (&ball);
-	engine.set_up ();
+	Game game;
+
+	game.add_collidable (&ball);
+	game.add_collidable (&player);
+	game.set_up ();
 
 	while (running)
 	{
@@ -60,23 +60,7 @@ int main (int argc, char* argv[])
 		SDL_SetRenderDrawColor (render, 0, 0, 0, 255);
 		SDL_RenderClear (render);
 
-		engine.update ();
-		/*player.update ();
-		player.draw ();
-		ball.update ();
-		ball.draw ();*/
-
-		if (aabb_intersect(player, ball))
-		{
-			Hit hit = intersect_pos (ball.pos, player.pos);
-			ball.velocity.x = hit.normal.x;
-			ball.velocity.y = hit.normal.y;
-
-			std::cout << "Boink, normal x: " << hit.normal.x << " normal y: " << hit.normal.y << std::endl;
-		}
-
-		// if (intersect)
-		// switch velocity(hit pos);
+		game.update ();
 
 		SDL_RenderPresent (render);
 	}

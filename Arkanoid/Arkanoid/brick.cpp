@@ -14,9 +14,8 @@ void brick::update()
 	draw ();
 }
 
-
 void brick::on_collision()
 {
 	alive = false;
-	//TODO run effects/gib player points
+	//TODO run effects/gib PLAYER points
 }
