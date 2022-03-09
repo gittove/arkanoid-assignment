@@ -13,12 +13,13 @@ Hit intersect_pos (const tove::Vector2& a_pos, const tove::Vector2& b_pos)
 
 	if (px < py)
 	{
+		std::cout << "bouncing x" << std::endl;
 		const float sx = sign (dx);
-		return {-1, 1, a_pos.x + a_pos.x * sx, b_pos.y};
+		return {1, -1, a_pos.x + a_pos.x * sx, b_pos.y};
 	}
-
+	std::cout << "bouncing y" << std::endl;
 	const float sy = sign (dy);
-	return { 1, -1, b_pos.x, a_pos.y + a_pos.y / 2 };
+	return { -1, 1, b_pos.x, a_pos.y + a_pos.y * sy };
 }
 
 bool aabb_intersect (const colliding_component& a, const colliding_component& b)
