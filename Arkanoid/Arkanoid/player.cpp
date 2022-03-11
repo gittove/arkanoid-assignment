@@ -18,9 +18,14 @@ void Player::update()
 	draw ();
 }
 
-void Player::draw()
+void Player::draw ()
 {
 	SDL_SetRenderDrawColor (render, 255, 255, 255, 255);
-	SDL_FRect rect = { pos.x, pos.y, 32, 8 };
+	SDL_FRect rect = { pos.x, pos.y, width, height };
 	SDL_RenderFillRectF (render, &rect);
+	//SDL_SetRenderDrawColor (render, 255, 0, 0, 255);
+	//SDL_RenderDrawPoint (render, pos.x, pos.y);
+	//SDL_RenderDrawPoint (render, pos.x, pos.y + height);
+	//SDL_RenderDrawPoint (render, pos.x + width, pos.y);
+	//SDL_RenderDrawPoint (render, pos.x + width, pos.y + height);
 }

@@ -5,6 +5,7 @@
 #include "engine.h"
 #include "game.h"
 #include "maths.h"
+#include "AABB.h"
 
 void Ball::update ()
 {
@@ -42,29 +43,37 @@ void Ball::draw()
 
 void Ball::calculate_pos()
 {
-	next_pos.x = speed * delta_time * velocity.x;
-	next_pos.y = speed * delta_time * velocity.y;
+	tove::Vector2 next_next_pos{ speed * delta_time * velocity.x, speed * delta_time * velocity.y };
+	next_pos = next_next_pos;
+	/*next_pos.x = speed * delta_time * velocity.x;
+	next_pos.y = speed * delta_time * velocity.y;*/
 }
 
 void Ball::sweep()
 {
+	AABB aabb_ball{ pos, width, height };
 	for (int i = 1; i < colliding_components.size (); ++i)
 	{
-		if (aabb_intersect (*colliding_components[i], *this))
+		AABB aabb_other{ colliding_components[i]->pos, colliding_components[i]->width, colliding_components[i]->height };
+		if (aabb_intersect (aabb_other, aabb_ball))
 		{
 			std::cout << "boink" << std::endl;
 			colliding_components[i]->on_collision ();
 
-			Hit hit = intersect_pos (colliding_components[i]->pos, pos);
+			Hit hit = intersect_pos (aabb_other, aabb_ball);
+
+
 			if (colliding_components[i]->type == BRICK)
 			{
 				colliding_components.erase (colliding_components.begin () + i);
 			}
+
 			if (colliding_components[i]->type == BOTTOM)
 			{
 				std::cout << "game over:/ oof bro, that's really rough. i'm here if u need to talk" << std::endl;
 				alive = false;
 			}
+
 			velocity.x *= hit.normal.x;
 			velocity.y *= hit.normal.y;
 

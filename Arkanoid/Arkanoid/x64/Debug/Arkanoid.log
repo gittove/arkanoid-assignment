@@ -1,8 +1,4 @@
 ﻿  collisions.cpp
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(17,26): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(17,25): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(17,18): warning C4244: 'initializing': conversion from 'int' to 'const float', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(21,25): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(21,24): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(21,17): warning C4244: 'initializing': conversion from 'int' to 'const float', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(18,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(29,58): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
   Arkanoid.vcxproj -> C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\x64\Debug\Arkanoid.exe

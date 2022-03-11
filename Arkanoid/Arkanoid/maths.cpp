@@ -29,3 +29,9 @@ float absvalue (float value)
 
 	return value;
 }
+
+
+float dot(tove::Vector2 a, tove::Vector2 b)
+{
+	return (a.x * b.x) + (a.y * b.y);
+}

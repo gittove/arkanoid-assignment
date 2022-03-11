@@ -1,5 +1,8 @@
 #pragma once
 #include "player.h"
+#include "AABB.h"
+#include <iostream>
+#include "maths.h"
 
 struct Hit
 {
@@ -11,5 +14,9 @@ struct Hit
 	}
 };
 
-Hit intersect_pos (const tove::Vector2& a_pos, const tove::Vector2& b_pos);
-bool aabb_intersect (const colliding_component& a, const colliding_component& b);
+Hit intersect_pos (const AABB& a, const AABB& ball);
+Hit intersect_player (const AABB& a, const AABB& ball);
+bool aabb_intersect (const AABB& a, const AABB& b);
+bool intersect_x (const AABB& a, const AABB& ball);
+bool intersect_y (const AABB& a, const AABB& ball);
+tove::Vector2 get_closest_point (const  AABB aabb, const tove::Vector2 point);
