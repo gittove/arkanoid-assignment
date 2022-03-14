@@ -1,11 +1,10 @@
 #include "ball.h"
-#include <iostream>
-
 #include "collisions.h"
 #include "engine.h"
 #include "game.h"
 #include "maths.h"
 #include "AABB.h"
+#include <iostream>
 
 void Ball::update ()
 {
@@ -52,14 +51,19 @@ void Ball::sweep()
 	for (int i = 1; i < colliding_components.size (); ++i)
 	{
 		AABB aabb_other{ colliding_components[i]->pos, colliding_components[i]->width, colliding_components[i]->height };
-		if (aabb_intersect (aabb_other, aabb_ball))
+		if (aabb_intersect(aabb_other, aabb_ball))
 		{
+			const float dx{ aabb_ball.pos.x - aabb_other.pos.x };
+			const float dy{ aabb_ball.pos.y - aabb_other.pos.y };
+
 			std::cout << "boink" << std::endl;
 			colliding_components[i]->on_collision ();
 
 			if (colliding_components[i]-> type == PLAYER)
 			{
 				Hit hit_p = intersect_player (aabb_other, aabb_ball, velocity.x);
+				depenetrate (dx, dy, hit_p.normal.x, hit_p.normal.y);
+
 				velocity.x *= hit_p.normal.x;
 				velocity.y *= hit_p.normal.y;
 
@@ -68,7 +72,6 @@ void Ball::sweep()
 			}
 			
 			Hit hit = intersect_pos (aabb_other, aabb_ball);
-			
 
 			if (colliding_components[i]->type == BRICK)
 			{
@@ -81,6 +84,8 @@ void Ball::sweep()
 				alive = false;
 			}
 
+			depenetrate (dx, dy, hit.normal.x, hit.normal.y);
+
 			velocity.x *= hit.normal.x;
 			velocity.y *= hit.normal.y;
 
@@ -90,6 +95,20 @@ void Ball::sweep()
 	pos.x += next_pos.x;
 	pos.y += next_pos.y;
 }
+
+void Ball::depenetrate(const float dx, const float dy, const float nx, const float ny)
+{
+	if (absvalue (dx) > 0)
+	{
+		nx > 0 ? pos.x - dx : pos.x + dx;
+	}
+
+	if (absvalue(dy) > 0)
+	{
+		ny > 0 ? pos.y - dy : pos.y + dy;
+	}
+}
+
 
 
 

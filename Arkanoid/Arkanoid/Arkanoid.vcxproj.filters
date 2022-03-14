@@ -33,7 +33,7 @@
     <ClCompile Include="maths.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="brick.cpp">
+    <ClCompile Include="Brick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game.cpp">
@@ -50,7 +50,7 @@
     <ClInclude Include="AABB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="brick.h">
+    <ClInclude Include="Brick.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="collisions.h">

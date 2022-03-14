@@ -1,8 +1,7 @@
 #pragma once
-#include "player.h"
-#include "AABB.h"
-#include <iostream>
-#include "maths.h"
+#include "Vector2.h"
+
+class AABB;
 
 struct Hit
 {

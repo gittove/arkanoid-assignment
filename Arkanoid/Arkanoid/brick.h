@@ -2,11 +2,11 @@
 #include "collidingcomponent.h"
 #include "engine.h"
 
-struct brick : colliding_component
+struct Brick : colliding_component
 {
 	bool alive;
 
-	brick (float x_pos, float y_pos, float width, float height) : colliding_component (x_pos, y_pos, width, height, BRICK), alive{ true }
+	Brick (float x_pos, float y_pos, float width, float height) : colliding_component (x_pos, y_pos, width, height, BRICK), alive{ true }
 	{
 		//engine_ptr.add_collidable (this);
 	}

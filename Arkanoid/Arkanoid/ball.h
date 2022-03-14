@@ -2,6 +2,7 @@
 #include "Vector2.h"
 #include "collidingcomponent.h"
 
+
 struct Ball : colliding_component
 {
 	tove::Vector2 next_pos;
@@ -18,4 +19,5 @@ struct Ball : colliding_component
 	void draw ();
 	void calculate_pos ();
 	void sweep ();
+	void depenetrate (const float dx, const float dy, const float nx, const float ny);
 };

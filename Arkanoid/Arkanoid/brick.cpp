@@ -1,20 +1,20 @@
-#include "brick.h"
+#include "Brick.h"
 
-void brick::draw()
+void Brick::draw()
 {
 	SDL_SetRenderDrawColor (render, 80, 75, 20, 255);
 	SDL_FRect rect = {pos.x, pos.y, width, height};
 	SDL_RenderFillRectF (render, &rect);
 }
 
-void brick::update()
+void Brick::update()
 {
 	if (!alive)
 		return;
 	draw ();
 }
 
-void brick::on_collision()
+void Brick::on_collision()
 {
 	alive = false;
 	//TODO run effects/gib PLAYER points

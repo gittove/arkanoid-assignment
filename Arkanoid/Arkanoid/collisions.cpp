@@ -1,6 +1,10 @@
 #include "collisions.h"
 #include <SDL_rect.h>
 #include "engine.h"
+#include "maths.h"
+#include "AABB.h"
+#include "player.h"
+#include <iostream>
 
 Hit intersect_pos (const AABB& a, const AABB& ball)
 {
@@ -48,22 +52,17 @@ Hit intersect_player (const AABB& a, const AABB& ball, float velocity_x)
 			std::cout << "right" << std::endl;
 		}
 
-		else if (pos_x_onplayer > a.x_min + diff_x * 0.49f
+		/*else if (pos_x_onplayer > a.x_min + diff_x * 0.49f
 			&& pos_x_onplayer < a.x_min + diff_x * 0.51f)
 		{
 			std::cout << "mid" << std::endl;
 			x = 0;
-		}
+		}*/
 		else
 		{
 			std::cout << "regular" << std::endl;
 			x = 1;
 		}
-	
-		// world to local transform let's go
-
-		/*const float vel_x = (a.height / a.height) / (ball.pos.y / ball.pos.y);
-		x = -vel_x;*/
 
 		std::cout << vel_y << std::endl;
 
