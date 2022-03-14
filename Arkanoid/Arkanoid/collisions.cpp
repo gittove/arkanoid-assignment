@@ -23,7 +23,7 @@ Hit intersect_pos (const AABB& a, const AABB& ball)
 	return { x, y, ball.pos.x, a.pos.y };
 }
 
-Hit intersect_player (const AABB& a, const AABB& ball)
+Hit intersect_player (const AABB& a, const AABB& ball, float velocity_x)
 {
 	float x{ 1 }, y{ 1 }, pos_x{ 0 }, pos_y{ 0 };
 
@@ -31,10 +31,35 @@ Hit intersect_player (const AABB& a, const AABB& ball)
 	{
 		const float mid = a.width / 2;
 		const float vel_y = (a.width / a.width) * 10 / (ball.pos.x - a.pos.x);
+		const float diff_x = a.x_max - a.x_min;
 		y = -1;
 
-		const float pos_x_onplayer{ clamp (ball.pos.x, a.x_min, a.x_max )};
+		const float pos_x_onplayer{ clamp (ball.pos.x, a.x_min, a.x_max) };
 
+		if (pos_x_onplayer < (a.x_min + diff_x * 0.1f))
+		{
+			velocity_x < 0 ? x = 1 : x = -1;
+			std::cout << "left" << std::endl;
+		}
+
+		else if (pos_x_onplayer > (a.x_max - diff_x * 0.1f))
+		{
+			velocity_x > 0 ? x = 1 : x = -1;
+			std::cout << "right" << std::endl;
+		}
+
+		else if (pos_x_onplayer > a.x_min + diff_x * 0.49f
+			&& pos_x_onplayer < a.x_min + diff_x * 0.51f)
+		{
+			std::cout << "mid" << std::endl;
+			x = 0;
+		}
+		else
+		{
+			std::cout << "regular" << std::endl;
+			x = 1;
+		}
+	
 		// world to local transform let's go
 
 		/*const float vel_x = (a.height / a.height) / (ball.pos.y / ball.pos.y);

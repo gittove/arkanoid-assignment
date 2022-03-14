@@ -15,7 +15,7 @@ struct Hit
 };
 
 Hit intersect_pos (const AABB& a, const AABB& ball);
-Hit intersect_player (const AABB& a, const AABB& ball);
+Hit intersect_player (const AABB& a, const AABB& ball, float velocity_x);
 bool aabb_intersect (const AABB& a, const AABB& b);
 bool intersect_x (const AABB& a, const AABB& ball);
 bool intersect_y (const AABB& a, const AABB& ball);

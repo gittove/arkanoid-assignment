@@ -43,10 +43,7 @@ void Ball::draw()
 
 void Ball::calculate_pos()
 {
-	tove::Vector2 next_next_pos{ speed * delta_time * velocity.x, speed * delta_time * velocity.y };
-	next_pos = next_next_pos;
-	/*next_pos.x = speed * delta_time * velocity.x;
-	next_pos.y = speed * delta_time * velocity.y;*/
+	next_pos = {speed * delta_time * velocity.x, speed *  delta_time * velocity.y};
 }
 
 void Ball::sweep()
@@ -60,8 +57,18 @@ void Ball::sweep()
 			std::cout << "boink" << std::endl;
 			colliding_components[i]->on_collision ();
 
-			Hit hit = intersect_pos (aabb_other, aabb_ball);
+			if (colliding_components[i]-> type == PLAYER)
+			{
+				Hit hit_p = intersect_player (aabb_other, aabb_ball, velocity.x);
+				velocity.x *= hit_p.normal.x;
+				velocity.y *= hit_p.normal.y;
 
+				calculate_pos ();
+				continue;
+			}
+			
+			Hit hit = intersect_pos (aabb_other, aabb_ball);
+			
 
 			if (colliding_components[i]->type == BRICK)
 			{
