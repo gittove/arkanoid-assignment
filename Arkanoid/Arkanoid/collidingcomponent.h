@@ -13,14 +13,14 @@ enum colliding_type
 struct colliding_component
 {
 	tove::Vector2 pos;
-	float width, height;
-	colliding_type type;
+	const float WIDTH, HEIGHT;
+	colliding_type TYPE;
 
-	colliding_component (float x, float y, float w, float h, colliding_type t) : pos{ x, y }, width{ w }, height{ h }, type{ t }
+	colliding_component (float x, float y, float w, float h, colliding_type t) : pos{ x, y }, WIDTH{ w }, HEIGHT{ h }, TYPE{ t }
 	{
 	}
 
-	virtual void on_collision()
+	virtual void on_collision(int i)
 	{
 		
 	}

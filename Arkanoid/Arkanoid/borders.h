@@ -7,7 +7,7 @@ struct wall : colliding_component
 	{
 	}
 	void update () override{}
-	void on_collision () override{}
+	void on_collision (int i) override{}
 };
 
 struct bottom : colliding_component
@@ -16,5 +16,5 @@ struct bottom : colliding_component
 	{
 	}
 	void update () override{}
-	void on_collision () override{}
+	void on_collision (int i) override{}
 };

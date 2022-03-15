@@ -12,8 +12,8 @@ int main (int argc, char* argv[])
 	delta_time = 0.f;
 
 	bool running = true;
-	Player player(275.f, 350.f, 200.f, 8.f, 32.f);
-	Ball ball{ 275.f, 150.f, 7 };
+	Player player(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.8f, 16.f, 64.f);
+	Ball ball{ player.pos.x + (player.WIDTH * 0.5f), player.pos.y - 200.f, 7 };
 	Engine engine;
 	Game game;
 

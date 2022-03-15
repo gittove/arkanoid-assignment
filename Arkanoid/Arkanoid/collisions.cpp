@@ -6,124 +6,113 @@
 #include "player.h"
 #include <iostream>
 
-Hit intersect_pos (const AABB& a, const AABB& ball)
+Hit intersect_pos (const AABB& A, const AABB& BALL)
 {
 	float x{ 1 }, y{ 1 }, pos_x{ 0 }, pos_y{ 0 };
 
-	if (intersect_x(a, ball))
+	if (intersect_x(A, BALL))
 	{
 		y = -1;
-		pos_x = a.pos.x + ((a.width * 0.5f) * sign (ball.pos.x - a.pos.x));
-		pos_y = ball.pos.y;
+		pos_x = A.pos.x + ((A.WIDTH * 0.5f) * sign (BALL.pos.x - A.pos.x));
+		pos_y = BALL.pos.y;
 	}
 
-	else if (intersect_y(a, ball))
+	else if (intersect_y(A, BALL))
 	{
 		x = -1;
-		pos_x = ball.pos.x;
-		pos_y = a.pos.y + ((a.height * 0.5f * sign (ball.pos.y - a.pos.y)));
+		pos_x = BALL.pos.x;
+		pos_y = A.pos.y + ((A.HEIGHT * 0.5f * sign (BALL.pos.y - A.pos.y)));
 	}
 
-	return { x, y, ball.pos.x, a.pos.y };
+	return { x, y, BALL.pos.x, A.pos.y };
 }
 
-Hit intersect_player (const AABB& a, const AABB& ball, float velocity_x)
+Hit intersect_player (const AABB& A, const AABB& BALL, float velocity_x)
 {
 	float x{ 1 }, y{ 1 }, pos_x{ 0 }, pos_y{ 0 };
 
-	if (intersect_x (a, ball))
+	if (intersect_x (A, BALL))
 	{
-		const float mid = a.width / 2;
-		const float vel_y = (a.width / a.width) * 10 / (ball.pos.x - a.pos.x);
-		const float diff_x = a.x_max - a.x_min;
+		const float MID = A.WIDTH / 2;
+		const float VEL_Y = (A.WIDTH / A.WIDTH) * 10 / (BALL.pos.x - A.pos.x);
+		const float DIFF_X = A.X_MAX - A.X_MIN;
 		y = -1;
 
-		const float pos_x_onplayer{ clamp (ball.pos.x, a.x_min, a.x_max) };
+		const float NEAREST_POINT_X{ clamp (BALL.pos.x, A.X_MIN, A.X_MAX) };
 
-		if (pos_x_onplayer < (a.x_min + diff_x * 0.1f))
+		if (NEAREST_POINT_X < (A.X_MIN + DIFF_X * 0.1f))
 		{
 			velocity_x < 0 ? x = 1 : x = -1;
-			std::cout << "left" << std::endl;
 		}
 
-		else if (pos_x_onplayer > (a.x_max - diff_x * 0.1f))
+		else if (NEAREST_POINT_X > (A.X_MAX - DIFF_X * 0.1f))
 		{
 			velocity_x > 0 ? x = 1 : x = -1;
-			std::cout << "right" << std::endl;
 		}
 
-		/*else if (pos_x_onplayer > a.x_min + diff_x * 0.49f
-			&& pos_x_onplayer < a.x_min + diff_x * 0.51f)
-		{
-			std::cout << "mid" << std::endl;
-			x = 0;
-		}*/
 		else
 		{
-			std::cout << "regular" << std::endl;
 			x = 1;
 		}
 
-		std::cout << vel_y << std::endl;
-
-		pos_x = a.pos.x + ((a.width * 0.5f) * sign (ball.pos.x - a.pos.x));
-		pos_y = ball.pos.y;
+		pos_x = A.pos.x + ((A.WIDTH * 0.5f) * sign (BALL.pos.x - A.pos.x));
+		pos_y = BALL.pos.y;
 	}
 
-	else if (intersect_y (a, ball))
+	else if (intersect_y (A, BALL))
 	{
 		x = -1;
-		pos_x = ball.pos.x;
-		pos_y = a.pos.y + ((a.height * 0.5f * sign (ball.pos.y - a.pos.y)));
+		pos_x = BALL.pos.x;
+		pos_y = A.pos.y + ((A.HEIGHT * 0.5f * sign (BALL.pos.y - A.pos.y)));
 	}
 
-	return { x, y, ball.pos.x, a.pos.y };
+	return { x, y, BALL.pos.x, A.pos.y };
 }
 
-bool aabb_intersect (const AABB& a, const AABB& ball)
+bool aabb_intersect (const AABB& A, const AABB& BALL)
 {
-	const float rad = ball.width * 0.5f;
+	const float RAD = BALL.WIDTH * 0.5f;
 
-	const tove::Vector2 closest_point = get_closest_point (a, ball.pos);
+	const tove::Vector2 CLOSEST_POINT = get_closest_point (A, BALL.pos);
 
-	const tove::Vector2 diff{ (closest_point.x - ball.pos.x), (closest_point.y - ball.pos.y) };
+	const tove::Vector2 DIFF{ (CLOSEST_POINT.x - BALL.pos.x), (CLOSEST_POINT.y - BALL.pos.y) };
 
-	const float dist_sqrd = dot((diff), (diff));
-	const float radius_sqrd = ball.width * ball.width;
+	const float DIST_SQRD = dot((DIFF), (DIFF));
+	const float RAD_SQRD = BALL.WIDTH * BALL.WIDTH;
 
-	return radius_sqrd > dist_sqrd;
+	return RAD_SQRD > DIST_SQRD;
 }
 
-bool intersect_x (const AABB& a, const AABB& ball)
+bool intersect_x (const AABB& A, const AABB& BALL)
 {
-	const float rad = ball.width * 0.5f;
+	const float RAD = BALL.WIDTH * 0.5f;
 
-	const float closest_point{ clamp (ball.pos.x, a.x_min, a.x_max) };
+	const float CLOSEST_POINT{ clamp (BALL.pos.x, A.X_MIN, A.X_MAX) };
 
-	const float diff{ closest_point - ball.pos.x };
+	const float DIFF{ CLOSEST_POINT - BALL.pos.x };
 
-	const float dist_sqrd = diff * diff;
-	const float radius_sqrd = rad * rad;
+	const float DIST_SQRD = DIFF * DIFF;
+	const float RAD_SQRD = RAD * RAD;
 
-	return radius_sqrd > dist_sqrd;
+	return RAD_SQRD > DIST_SQRD;
 }
 
-bool intersect_y(const AABB& a, const AABB& ball)
+bool intersect_y(const AABB& A, const AABB& BALL)
 {
-	const float rad = ball.width * 0.5f;
+	const float RAD = BALL.WIDTH * 0.5f;
 
-	const float closest_point{ clamp (ball.pos.y, a.y_min, a.y_max) };
+	const float CLOSEST_POINT{ clamp (BALL.pos.y, A.Y_MIN, A.Y_MAX) };
 
-	const float diff{ closest_point - ball.pos.y };
+	const float DIFF{ CLOSEST_POINT - BALL.pos.y };
 
-	const float dist_sqrd = diff * diff;
-	const float radius_sqrd = rad * rad;
+	const float DIST_SQRD = DIFF * DIFF;
+	const float RAD_SQRD = RAD * RAD;
 
-	return radius_sqrd > dist_sqrd;
+	return RAD_SQRD > DIST_SQRD;
 }
 
-tove::Vector2 get_closest_point(const AABB aabb, const tove::Vector2 point)
+tove::Vector2 get_closest_point(const AABB AABB, const tove::Vector2 POINT)
 {
-	return { clamp (point.x, aabb.x_min, aabb.x_max),
-			clamp(point.y, aabb.y_min, aabb.y_max) };
+	return { clamp (POINT.x, AABB.X_MIN, AABB.X_MAX),
+			clamp(POINT.y, AABB.Y_MIN, AABB.Y_MAX) };
 }

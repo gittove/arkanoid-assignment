@@ -1,10 +1,19 @@
 #include "game.h"
-
 #include <iostream>
 
-Brick* bricks[NUM_BRICKS] = {nullptr};
+std::vector<Brick*> bricks(NUM_BRICKS);
 bool keys[SDL_SCANCODE_LEFT + SDL_SCANCODE_A + SDL_SCANCODE_RIGHT + SDL_SCANCODE_D] = { false };
 std::vector<colliding_component*> colliding_components = {};
+
+const char* LEVEL =
+"................"
+".23232323232323."
+".12121212121212."
+".21212121212121."
+".11111111111111."
+"..11111..11111.."
+"...222....222..."
+"....1......1....";
 
 void Game::add_collidable (colliding_component* add)
 {
@@ -23,22 +32,6 @@ void Game::set_up ()
 	add_collidable (a_bottom);
 
 	load_map ();
-
-	//int x{ 2 }, y{ 2 };
-	//int add_x{ 32 }, add_y{ 19 };
-	//for (int i = 1; i < 8; ++i)
-	//{
-	//	for (int k = 1; k < 20; ++k)
-	//	{
-	//		//this is heap allocation, i don't want to delete it though. is this legal?
-	//		// remember to add delete:))))
-	//		Brick* a_brick = new Brick (x, y, 30, 15);
-	//		add_collidable (a_brick);
-	//		x += add_x;
-	//	}
-	//	y += add_y;
-	//	x = 2;
-	//}
 }
 
 void Game::update ()
@@ -47,25 +40,52 @@ void Game::update ()
 	{
 		colliding_components[i]->update ();
 	}
+
+	if (bricks.empty())
+	{
+		std::cout << "game over" << std::endl;
+	}
 }
 
 void Game::load_map()
 {
 	std::cout << "brick width: " << BRICK_WIDTH << " brick height: " << BRICK_HEIGHT << std::endl;
-	const int brick_w = BRICK_WIDTH;
-	const int brick_h = BRICK_HEIGHT;
+	const char* ptr = LEVEL;
+
  	for(int y = 0; y < MAP_ROWS; ++y)
 	{
-		for(int x = 0; x < MAP_COLS; ++x)
+		for(int x = 0; x < MAP_COLS; ++x, ++ptr)
 		{
-			/*if ((x + y) % 2 == 0)
+			/*if (*ptr != '1')
 				continue;*/
 
-			Brick* brick = new Brick((x * brick_w + brick_w), (y * brick_h + brick_h), brick_w, brick_h);
-			
-			std::cout << "x: " << (x * brick_w) + brick_w << " y: " << y * brick_h + brick_h << std::endl;
-			bricks[y * MAP_COLS + x] = brick;
-			add_collidable (brick);
+			const float BRICK_POS_X = x + 1 * BRICK_SPACING + x * BRICK_WIDTH - BRICK_SPACING;
+			const float BRICK_POS_Y = y + 1 * BRICK_SPACING + y * BRICK_HEIGHT - BRICK_SPACING;
+
+			Brick* brick;
+
+			switch (*ptr)
+			{
+			case '.':
+				continue;
+			case '1':
+				brick = new Brick (BRICK_POS_X, BRICK_POS_Y, BRICK_WIDTH, BRICK_HEIGHT, ONEHP);
+				bricks[y * MAP_COLS + x] = brick;
+				add_collidable (brick);
+				break;
+			case '2':
+				brick = new Brick (BRICK_POS_X, BRICK_POS_Y, BRICK_WIDTH, BRICK_HEIGHT, TWOHP);
+				bricks[y * MAP_COLS + x] = brick;
+				add_collidable (brick);
+				break;
+			case '3':
+				brick = new Brick (BRICK_POS_X, BRICK_POS_Y, BRICK_WIDTH, BRICK_HEIGHT, THREEHP);
+				bricks[y * MAP_COLS + x] = brick;
+				add_collidable (brick);
+				break;
+			default: 
+				break;
+			}
 		}
 	}
 }

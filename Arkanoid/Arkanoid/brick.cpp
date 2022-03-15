@@ -1,9 +1,27 @@
 #include "Brick.h"
 
+#include <iostream>
+#include <ostream>
+
+#include "game.h"
+
 void Brick::draw()
 {
-	SDL_SetRenderDrawColor (render, 80, 75, 20, 255);
-	SDL_FRect rect = {pos.x, pos.y, width, height};
+	switch (state)
+	{
+	case ONEHP:
+		SDL_SetRenderDrawColor (render, 255, 0, 0, 255);
+		break;
+	case TWOHP:
+		SDL_SetRenderDrawColor (render, 125, 75, 75, 255);
+		break;
+	case THREEHP:
+		SDL_SetRenderDrawColor (render, 20, 255, 20, 255);
+		break;
+	default:
+		break;
+	}
+	SDL_FRect rect = {pos.x, pos.y, WIDTH, HEIGHT};
 	SDL_RenderFillRectF (render, &rect);
 }
 
@@ -14,8 +32,48 @@ void Brick::update()
 	draw ();
 }
 
-void Brick::on_collision()
+void Brick::on_collision(int i)
 {
-	alive = false;
+	--health;
+	refresh_state (health);
+	if (state == DEAD)
+	{
+		alive = false;
+
+		for (int k = 0; k < bricks.size(); ++k)
+		{
+			if (bricks[k] != this)
+				continue;
+
+			bricks.erase (bricks.begin () + k);
+		}
+		colliding_components.erase (colliding_components.begin () + i);
+	}
+	
+	if (bricks.empty())
+	{
+		std::cout << "u win:)" << std::endl;
+	}
 	//TODO run effects/gib PLAYER points
+}
+
+void Brick::refresh_state(const int HP)
+{
+	switch(HP)
+	{
+	case 0:
+		state = DEAD;
+		break;
+	case 1:
+		state = ONEHP;
+		break;
+	case 2:
+		state = TWOHP;
+		break;
+	case 3:
+		state = THREEHP;
+		break;
+	default:
+		break;
+	}
 }
