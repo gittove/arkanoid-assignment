@@ -2,7 +2,7 @@
 #include <iostream>
 
 std::vector<Brick*> bricks(NUM_BRICKS);
-bool keys[SDL_SCANCODE_LEFT + SDL_SCANCODE_A + SDL_SCANCODE_RIGHT + SDL_SCANCODE_D] = { false };
+bool keys[SDL_SCANCODE_LEFT + SDL_SCANCODE_A + SDL_SCANCODE_RIGHT + SDL_SCANCODE_D + SDL_SCANCODE_SPACE] = { false };
 std::vector<colliding_component*> colliding_components = {};
 
 const char* LEVEL =
@@ -49,7 +49,6 @@ void Game::update ()
 
 void Game::load_map()
 {
-	std::cout << "brick width: " << BRICK_WIDTH << " brick height: " << BRICK_HEIGHT << std::endl;
 	const char* ptr = LEVEL;
 
  	for(int y = 0; y < MAP_ROWS; ++y)

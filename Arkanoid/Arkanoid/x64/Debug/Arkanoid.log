@@ -1,14 +1,6 @@
-﻿  ball.cpp
+﻿  collisions.cpp
 C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\AABB.h(5,1): warning C4099: 'AABB': type name first seen using 'class' now seen using 'struct'
 C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\AABB.h(4): message : see declaration of 'AABB'
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(40,16): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(39,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(38,16): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(37,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(68,66): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(73,31): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(74,31): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(91,28): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(92,28): warning C4244: '*=': conversion from 'float' to 'int', possible loss of data
-C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(108,14): warning C4552: '-': result of expression not used
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(17,14): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(25,13): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
   Arkanoid.vcxproj -> C:\Users\tove.backenroth\OneDrive - Change Maker Education\Gitfork\cpp-big-assignment\Arkanoid\x64\Debug\Arkanoid.exe

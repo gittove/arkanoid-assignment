@@ -8,12 +8,18 @@
 
 void Ball::update ()
 {
-	if (!alive)
-		return;
+	if (!alive && keys[SDL_SCANCODE_SPACE])
+	{
+		alive = true;
+	}
 
-	calculate_pos ();
-	sweep ();
-	move ();
+	if (alive)
+	{
+		calculate_pos ();
+		sweep ();
+		move ();
+	}
+
 	draw ();
 }
 
@@ -43,7 +49,7 @@ void Ball::draw()
 
 void Ball::calculate_pos()
 {
-	next_pos = {speed * delta_time * velocity.x, speed *  delta_time * velocity.y};
+	next_pos = {speed * delta_time * direction.x, speed *  delta_time * direction.y};
 }
 
 void Ball::move()
@@ -54,7 +60,7 @@ void Ball::move()
 
 void Ball::sweep()
 {
-	AABB aabb_ball{ pos, WIDTH, HEIGHT };
+	AABB aabb_ball{ pos + &next_pos, WIDTH, HEIGHT };
 	for (int i = 1; i < colliding_components.size (); ++i)
 	{
 		AABB aabb_other{ colliding_components[i]->pos, colliding_components[i]->WIDTH, colliding_components[i]->HEIGHT };
@@ -63,22 +69,12 @@ void Ball::sweep()
 			const float DX{ aabb_ball.pos.x - aabb_other.pos.x };
 			const float DY{ aabb_ball.pos.y - aabb_other.pos.y };
 
-			if (colliding_components[i]-> TYPE == PLAYER)
-			{
-				Hit hit_p = intersect_player (aabb_other, aabb_ball, velocity.x);
-
-				std::cout << "pos y: " << pos.y << " dy: " << DY << std::endl;
-				depenetrate (DX, DY, hit_p.normal.x, hit_p.normal.y);
-
-				velocity.x *= hit_p.normal.x;
-				velocity.y *= hit_p.normal.y;
-
-				calculate_pos ();
+			if (colliding_components[i]->TYPE == PLAYER && DY < 0)
 				continue;
-			}
 			
 			Hit hit = intersect_pos (aabb_other, aabb_ball);
 			//depenetrate (DX, DY, hit.normal.x, hit.normal.y);
+			pos = hit.pos;
 
 			if (colliding_components[i]->TYPE == BOTTOM)
 			{
@@ -88,24 +84,26 @@ void Ball::sweep()
 
 			colliding_components[i]->on_collision (i);
 
-			velocity.x *= hit.normal.x;
-			velocity.y *= hit.normal.y;
+			tove::Vector2 reflect = reflect_v2 (direction, hit.normal);
+			direction = {direction - &reflect};
+			std::cout << delta_time << "dir x: " << direction.x << "dir y: " << direction.y << std::endl;
 
 			calculate_pos ();
+			return;
 		}
 	}
 }
 
-void Ball::depenetrate(const float DX, const float DY, const float NX, const float NY)
+void Ball::depenetrate(const float dx, const float dy, const float nx, const float ny)
 {
-	if (absvalue (DX) > 0)
+	if (absvalue (dx) > 0)
 	{
-		NX > 0 ? next_pos.x - DX : next_pos.x + DX;
+		nx > 0 ? next_pos.x - dx : next_pos.x + dx;
 	}
 
-	if (absvalue(DY) > 0)
+	if (absvalue(dy) > 0)
 	{
-		NY > 0 ? next_pos.y - DY : next_pos.y + DY;
+		ny > 0 ? next_pos.y - dy : next_pos.y + dy;
 	}
 }
 

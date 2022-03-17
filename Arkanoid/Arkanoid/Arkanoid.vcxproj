@@ -116,12 +116,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\tove.backenroth\Development Libraries\SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>SDL2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\tove.backenroth\Development Libraries\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -143,7 +143,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ball.cpp" />
-    <ClCompile Include="Brick.cpp" />
+    <ClCompile Include="brick.cpp" />
     <ClCompile Include="collisions.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="game.cpp" />
@@ -155,14 +155,14 @@
     <ClInclude Include="AABB.h" />
     <ClInclude Include="ball.h" />
     <ClInclude Include="bottom.h" />
-    <ClInclude Include="Brick.h" />
+    <ClInclude Include="brick.h" />
     <ClInclude Include="collidingcomponent.h" />
     <ClInclude Include="collisions.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="maths.h" />
     <ClInclude Include="player.h" />
-    <ClInclude Include="Vector2.h" />
+    <ClInclude Include="vector2.h" />
     <ClInclude Include="borders.h" />
   </ItemGroup>
   <ItemGroup>

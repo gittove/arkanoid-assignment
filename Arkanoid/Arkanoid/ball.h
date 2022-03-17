@@ -1,17 +1,17 @@
 #pragma once
-#include "Vector2.h"
+#include "vector2.h"
 #include "collidingcomponent.h"
-
+//TODO cleanup
 #define VELOCITY 1
 
 struct Ball : colliding_component
 {
 	tove::Vector2 next_pos;
-	tove::Vector2Int velocity;
+	tove::Vector2 direction;
 	float speed;
 	bool alive;
 
-	Ball (float x, float y, float rad) : colliding_component (x, y, rad, rad, BALL), next_pos{0, 0}, velocity{ VELOCITY, VELOCITY }, speed{ 130.f }, alive {true}
+	Ball (float x, float y, float rad) : colliding_component (x, y, rad, rad, BALL), next_pos{0, 0}, direction{ VELOCITY, VELOCITY }, speed{ 60.f }, alive {false}
 	{
 	}
 
@@ -21,5 +21,5 @@ struct Ball : colliding_component
 	void calculate_pos ();
 	void move ();
 	void sweep ();
-	void depenetrate (const float DX, const float DY, const float NX, const float NY);
+	void depenetrate (const float dx, const float dy, const float nx, const float ny);
 };

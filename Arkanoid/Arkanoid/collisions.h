@@ -1,5 +1,5 @@
 #pragma once
-#include "Vector2.h"
+#include "vector2.h"
 
 class AABB;
 
@@ -13,9 +13,8 @@ struct Hit
 	}
 };
 
-Hit intersect_pos (const AABB& A, const AABB& BALL);
-Hit intersect_player (const AABB& A, const AABB& BALL, float velocity_x);
-bool aabb_intersect (const AABB& A, const AABB& b);
-bool intersect_x (const AABB& A, const AABB& BALL);
-bool intersect_y (const AABB& A, const AABB& BALL);
+Hit intersect_pos (const AABB& a, const AABB& ball);
+bool aabb_intersect (const AABB& a, const AABB& b);
+bool intersect_x (const AABB& a, const AABB& ball);
+bool intersect_y (const AABB& a, const AABB& ball);
 tove::Vector2 get_closest_point (const  AABB AABB, const tove::Vector2 POINT);

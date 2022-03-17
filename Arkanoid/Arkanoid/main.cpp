@@ -62,6 +62,13 @@ int main (int argc, char* argv[])
 
 		game.update ();
 
+		if (bricks.size() < game.ball_spawn_ticks[game.brick_arr_i])
+		{
+			std::cout << "spawn new ball" << std::endl;
+			Ball newBall{ player.pos.x + (player.WIDTH * 0.5f), player.pos.y - 200.f, 7 };
+			++game.brick_arr_i;
+		}
+
 		SDL_RenderPresent (render);
 	}
 
