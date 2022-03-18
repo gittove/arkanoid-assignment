@@ -1,0 +1,24 @@
+﻿  ball.cpp
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\AABB.h(5,1): warning C4099: 'AABB': type name first seen using 'class' now seen using 'struct'
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\AABB.h(4): message : see declaration of 'AABB'
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(51,16): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(50,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(49,16): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\ball.cpp(48,15): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  brick.cpp
+  collisions.cpp
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\AABB.h(5,1): warning C4099: 'AABB': type name first seen using 'class' now seen using 'struct'
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\AABB.h(4): message : see declaration of 'AABB'
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(17,14): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\collisions.cpp(54,13): warning C4244: 'argument': conversion from 'const float' to 'int', possible loss of data
+  engine.cpp
+  game.cpp
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\game.cpp(64,70): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\game.cpp(64,28): warning C4244: 'initializing': conversion from 'int' to 'const float', possible loss of data
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\game.cpp(65,71): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\Arkanoid\game.cpp(65,28): warning C4244: 'initializing': conversion from 'int' to 'const float', possible loss of data
+  main.cpp
+  maths.cpp
+  player.cpp
+  Generating Code...
+  Arkanoid.vcxproj -> C:\Users\Tove\GitFork\cpp-big-assignment\Arkanoid\x64\Debug\Arkanoid.exe
