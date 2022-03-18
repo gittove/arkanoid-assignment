@@ -3,12 +3,22 @@
 
 class AABB;
 
+enum COLL_SPOT
+{
+	LEFT,
+	RIGHT,
+	LEFTEDGE,
+	RIGHTEDGE,
+	MID
+};
+
 struct Hit
 {
 	tove::Vector2 normal;
-	tove::Vector2 pos;
+	COLL_SPOT SPOT;
+	float scalar;
 
-	Hit (float n_x, float n_y, float x, float y) : normal{ n_x, n_y }, pos{ x, y }
+	Hit (float n_x, float n_y, COLL_SPOT spot, float sc) : normal{ n_x, n_y }, SPOT{spot}, scalar{sc}
 	{
 	}
 };

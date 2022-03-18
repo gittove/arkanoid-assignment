@@ -1,7 +1,4 @@
 #include "collisions.h"
-
-#include <iostream>
-
 #include "maths.h"
 #include "AABB.h"
 
@@ -10,27 +7,86 @@ Hit intersect_pos (const AABB& a, const AABB& ball)
 	const float dx{ ball.pos.x - a.pos.x };
 	const float dy{ ball.pos.y - a.pos.y };
 	int nx{ 0 }, ny{ 0 };
-	float pos_x{0}, pos_y{0};
+	float pos_x{0}, pos_y{0}, scalar{};
+	const float diff_y{ a.Y_MAX - a.Y_MIN };
+	const float diff_x{ a.X_MAX - a.X_MIN };
+	COLL_SPOT hit_spot{};
 
 	if (intersect_x(a, ball))
 	{
 		nx = sign (dx);
-		pos_x = ball.pos.x;
-		pos_y = ball.pos.y;
-		//pos_x = (a.pos.x + a.WIDTH * 0.5f) + ((a.WIDTH * 0.5f) + ball.WIDTH * 0.5f) * nx;// -ball.WIDTH * 0.5f;
+
+		if (ball.pos.y < a.Y_MIN + diff_y * 0.48f)
+		{
+			ball.pos.y < a.Y_MIN + diff_y * 0.05f ? hit_spot = LEFTEDGE : hit_spot = LEFT;
+		}
+		else if (ball.pos.y > a.Y_MIN + diff_y * 0.52f)
+		{
+			ball.pos.y > a.Y_MIN + diff_y * 0.95f ? hit_spot = RIGHTEDGE : hit_spot = RIGHT;
+		}
+		else
+		{
+			hit_spot = MID;
+		}
+
+		switch(hit_spot)
+		{
+		case LEFTEDGE:
+			scalar = -1;
+			break;
+		case RIGHTEDGE:
+			scalar = 1;
+			break;
+		case MID:
+			scalar = 0;
+			break;
+		case LEFT:
+			scalar = inverse_lerp (ball.pos.y, a.Y_MIN + diff_y * 0.05f, a.Y_MIN + diff_y * 0.48f);
+			break;
+		case RIGHT:
+			scalar = 1 - inverse_lerp (ball.pos.y, a.Y_MIN + diff_y * 0.52f, a.Y_MIN + diff_y * 0.95f);
+			break;
+		}
 	}
 
 	else
 	{
 		ny = sign(dy);
-		//here, you're calculating impact point. not hit point!
-		pos_x = ball.pos.x;
-		std::cout << "ny: " << ny << std::endl;
-		pos_y = (a.pos.y + a.HEIGHT * 0.5f) + (a.HEIGHT * 0.5f + (ball.HEIGHT * 0.5f * ny));// -ball.HEIGHT * 0.5f;
-		std::cout << "pos_y: " << pos_y << std::endl;
+
+		if (ball.pos.x < a.X_MIN + diff_x * 0.48f)
+		{
+			ball.pos.x < a.X_MIN + diff_x * 0.05f ? hit_spot = LEFTEDGE : hit_spot = LEFT;
+		}
+		else if (ball.pos.x > a.X_MIN + diff_x * 0.52f)
+		{
+			ball.pos.x > a.X_MIN + diff_x * 0.95f ? hit_spot = RIGHTEDGE : hit_spot = RIGHT;
+		}
+		else
+		{
+			hit_spot = MID;
+		}
+
+		switch (hit_spot)
+		{
+		case LEFTEDGE:
+			scalar = -1;
+			break;
+		case RIGHTEDGE:
+			scalar = 1;
+			break;
+		case MID:
+			scalar = 0;
+			break;
+		case LEFT:
+			scalar = inverse_lerp (ball.pos.x, a.X_MIN + diff_x * 0.05f, a.X_MIN + diff_x * 0.48f);
+			break;
+		case RIGHT:
+			scalar = 1 - inverse_lerp (ball.pos.x, a.X_MIN + diff_x * 0.52f, a.X_MIN + diff_x * 0.95f);
+			break;
+		}
  	}
 
-	return { (float)nx, (float)ny, pos_x, pos_y};
+	return { (float)nx, (float)ny, hit_spot, scalar};
 }
 
 bool aabb_intersect (const AABB& a, const AABB& ball)

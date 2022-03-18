@@ -1,6 +1,5 @@
 #pragma once
 #include "collidingcomponent.h"
-#include "engine.h"
 
 enum BRICK_STATE
 {
@@ -30,7 +29,6 @@ struct Brick : colliding_component
 			health = 3;
 			break;
 		}
-		//engine_ptr.add_collidable (this);
 	}
 
 	void draw ();

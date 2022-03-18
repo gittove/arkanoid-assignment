@@ -23,9 +23,4 @@ void Player::draw ()
 	SDL_SetRenderDrawColor (render, 255, 255, 255, 255);
 	SDL_FRect rect = { pos.x, pos.y, WIDTH, HEIGHT };
 	SDL_RenderFillRectF (render, &rect);
-	//SDL_SetRenderDrawColor (render, 255, 0, 0, 255);
-	//SDL_RenderDrawPoint (render, pos.x, pos.y);
-	//SDL_RenderDrawPoint (render, pos.x, pos.y + HEIGHT);
-	//SDL_RenderDrawPoint (render, pos.x + WIDTH, pos.y);
-	//SDL_RenderDrawPoint (render, pos.x + WIDTH, pos.y + HEIGHT);
 }

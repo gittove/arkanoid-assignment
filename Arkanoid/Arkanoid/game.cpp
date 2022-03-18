@@ -1,7 +1,11 @@
 #include "game.h"
 #include <iostream>
 
-std::vector<Brick*> bricks(NUM_BRICKS);
+#include "ball.h"
+#include "borders.h"
+
+std::vector<Brick*> bricks{};
+std::vector<Ball*> balls{};
 bool keys[SDL_SCANCODE_LEFT + SDL_SCANCODE_A + SDL_SCANCODE_RIGHT + SDL_SCANCODE_D + SDL_SCANCODE_SPACE] = { false };
 std::vector<colliding_component*> colliding_components = {};
 
@@ -19,6 +23,7 @@ void Game::add_collidable (colliding_component* add)
 {
 	colliding_components.push_back (add);
 }
+
 
 void Game::set_up ()
 {
@@ -43,7 +48,7 @@ void Game::update ()
 
 	if (bricks.empty())
 	{
-		std::cout << "game over" << std::endl;
+		std::cout << "u won!!!!" << std::endl;
 	}
 }
 
@@ -51,12 +56,10 @@ void Game::load_map()
 {
 	const char* ptr = LEVEL;
 
- 	for(int y = 0; y < MAP_ROWS; ++y)
+	for(int y = 0; y < MAP_ROWS; ++y)
 	{
 		for(int x = 0; x < MAP_COLS; ++x, ++ptr)
 		{
-			/*if (*ptr != '1')
-				continue;*/
 
 			const float BRICK_POS_X = x + 1 * BRICK_SPACING + x * BRICK_WIDTH - BRICK_SPACING;
 			const float BRICK_POS_Y = y + 1 * BRICK_SPACING + y * BRICK_HEIGHT - BRICK_SPACING;
@@ -69,22 +72,30 @@ void Game::load_map()
 				continue;
 			case '1':
 				brick = new Brick (BRICK_POS_X, BRICK_POS_Y, BRICK_WIDTH, BRICK_HEIGHT, ONEHP);
-				bricks[y * MAP_COLS + x] = brick;
+				bricks.push_back (brick);
 				add_collidable (brick);
+				++num_bricks;
 				break;
 			case '2':
 				brick = new Brick (BRICK_POS_X, BRICK_POS_Y, BRICK_WIDTH, BRICK_HEIGHT, TWOHP);
-				bricks[y * MAP_COLS + x] = brick;
+				bricks.push_back (brick);
 				add_collidable (brick);
+				++num_bricks;
 				break;
 			case '3':
 				brick = new Brick (BRICK_POS_X, BRICK_POS_Y, BRICK_WIDTH, BRICK_HEIGHT, THREEHP);
-				bricks[y * MAP_COLS + x] = brick;
+				bricks.push_back (brick);
 				add_collidable (brick);
+				++num_bricks;
 				break;
 			default: 
 				break;
 			}
 		}
 	}
+}
+
+void Game::check_input()
+{
+	
 }

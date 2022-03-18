@@ -20,6 +20,11 @@ void Ball::update ()
 		move ();
 	}
 
+	else
+	{
+		pos = { *player_x + offset_x, *player_y + offset_y};
+	}
+
 	draw ();
 }
 
@@ -61,32 +66,63 @@ void Ball::move()
 void Ball::sweep()
 {
 	AABB aabb_ball{ pos + &next_pos, WIDTH, HEIGHT };
-	for (int i = 1; i < colliding_components.size (); ++i)
+	for (int i = 0; i < colliding_components.size (); ++i)
 	{
 		AABB aabb_other{ colliding_components[i]->pos, colliding_components[i]->WIDTH, colliding_components[i]->HEIGHT };
 		if (aabb_intersect(aabb_other, aabb_ball))
 		{
+			if (colliding_components[i]-> TYPE == BALL)
+			{
+				continue;
+			}
+
 			const float DX{ aabb_ball.pos.x - aabb_other.pos.x };
 			const float DY{ aabb_ball.pos.y - aabb_other.pos.y };
 
-			if (colliding_components[i]->TYPE == PLAYER && DY < 0)
-				continue;
-			
 			Hit hit = intersect_pos (aabb_other, aabb_ball);
-			//depenetrate (DX, DY, hit.normal.x, hit.normal.y);
-			pos = hit.pos;
+			depenetrate (DX, DY, hit.normal.x, hit.normal.y);
+
+			if (colliding_components[i]->TYPE == PLAYER && DY > 0)
+			{
+				direction.x = hit.normal.x;
+				continue;
+			}
 
 			if (colliding_components[i]->TYPE == BOTTOM)
 			{
-				std::cout << "game over:/ oof bro, that's really rough. i'm here if u need to talk" << std::endl;
-				alive = false;
+				on_bottom ();
+				return;
+			}
+
+			if (colliding_components[i]->TYPE == PLAYER)
+			{
+				switch (hit.SPOT)
+				{
+				case LEFTEDGE:
+					direction = { -1, hit.normal.y };
+					break;
+				case RIGHTEDGE:
+					direction = { 1, hit.normal.y };
+					break;
+				case LEFT:
+					direction = { -1 * hit.scalar, hit.normal.y };
+					break;
+				case RIGHT:
+					direction = { 1 * hit.scalar, hit.normal.y };
+					break;
+				case MID:
+					direction = { 0, hit.normal.y };
+					break;
+				}
+			}
+
+			else
+			{
+				tove::Vector2 reflect = reflect_v2 (direction, hit.normal);
+				direction = { direction - &reflect };
 			}
 
 			colliding_components[i]->on_collision (i);
-
-			tove::Vector2 reflect = reflect_v2 (direction, hit.normal);
-			direction = {direction - &reflect};
-			std::cout << delta_time << "dir x: " << direction.x << "dir y: " << direction.y << std::endl;
 
 			calculate_pos ();
 			return;
@@ -98,14 +134,41 @@ void Ball::depenetrate(const float dx, const float dy, const float nx, const flo
 {
 	if (absvalue (dx) > 0)
 	{
-		nx > 0 ? next_pos.x - dx : next_pos.x + dx;
+		nx > 0 ? next_pos.x - (dx + 0.5f) : next_pos.x + (dx + 0.5f);
 	}
 
 	if (absvalue(dy) > 0)
 	{
-		ny > 0 ? next_pos.y - dy : next_pos.y + dy;
+		ny > 0 ? next_pos.y - (dy + 0.5f) : next_pos.y + (dy + 0.5f);
 	}
 }
+
+void Ball::on_bottom()
+{
+	alive = false;
+
+	for (int i = 0; i < balls.size (); ++i)
+	{
+		if (balls[i] == this)
+		{
+			balls.erase (balls.begin () + i);
+		}
+	}
+
+	for (int i = 0; i < colliding_components.size (); ++i)
+	{
+		if (colliding_components[i] == this)
+		{
+			colliding_components.erase (colliding_components.begin () + i);
+		}
+	}
+
+	if (balls.size() == 0)
+	{
+		std::cout << "game over:/ oof bro, that's really rough. i'm here if u need to talk" << std::endl;
+	}
+}
+
 
 
 

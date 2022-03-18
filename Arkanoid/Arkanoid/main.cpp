@@ -12,13 +12,15 @@ int main (int argc, char* argv[])
 	delta_time = 0.f;
 
 	bool running = true;
-	Player player(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.8f, 16.f, 64.f);
-	Ball ball{ player.pos.x + (player.WIDTH * 0.5f), player.pos.y - 200.f, 7 };
+	bool other_ball_spawned = false;
+	Player* player = new Player{WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.8f, 16.f, 64.f};
+	Ball* ball = new Ball{ &player->pos.x, (player->WIDTH * 0.5f), &player->pos.y, -100.f, 7 };
 	Engine engine;
 	Game game;
 
-	game.add_collidable (&ball);
-	game.add_collidable (&player);
+	game.add_collidable (ball);
+	balls.push_back (ball);
+	game.add_collidable (player);
 	game.set_up ();
 
 	while (running)
@@ -36,23 +38,24 @@ int main (int argc, char* argv[])
 				break;
 			}
 			case SDL_KEYDOWN:
+			{
+				int scancode = event.key.keysym.scancode;
+				if (scancode == SDL_SCANCODE_ESCAPE)
 				{
-					int scancode = event.key.keysym.scancode;
-					if (scancode == SDL_SCANCODE_ESCAPE)
-					{
-						running = false;
-					}
-
-					keys[scancode] = true;
-
-					break;
+					running = false;
 				}
+
+				keys[scancode] = true;
+
+				break;
+			}
 			case SDL_KEYUP:
-				{
-					int scancode = event.key.keysym.scancode;
+			{
+				int scancode = event.key.keysym.scancode;
 
-					keys[scancode] = false;
-				}
+				keys[scancode] = false;
+				break;
+			}
 			}
 
 		}
@@ -62,11 +65,12 @@ int main (int argc, char* argv[])
 
 		game.update ();
 
-		if (bricks.size() < game.ball_spawn_ticks[game.brick_arr_i])
+		if (!other_ball_spawned && bricks.size() < game.num_bricks * 0.9f)
 		{
-			std::cout << "spawn new ball" << std::endl;
-			Ball newBall{ player.pos.x + (player.WIDTH * 0.5f), player.pos.y - 200.f, 7 };
-			++game.brick_arr_i;
+			Ball* newBall = new Ball{ &player->pos.x, (player->WIDTH * 0.5f), &player->pos.y, -100.f, 7 };
+			game.add_collidable (newBall);
+			balls.push_back (newBall);
+			other_ball_spawned = true;
 		}
 
 		SDL_RenderPresent (render);

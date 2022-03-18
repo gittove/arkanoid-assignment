@@ -1,7 +1,5 @@
 #include "Brick.h"
-
-#include <iostream>
-#include <ostream>
+#include "engine.h"
 
 #include "game.h"
 
@@ -49,12 +47,6 @@ void Brick::on_collision(int i)
 		}
 		colliding_components.erase (colliding_components.begin () + i);
 	}
-	
-	if (bricks.empty())
-	{
-		std::cout << "u win:)" << std::endl;
-	}
-	//TODO run effects/gib PLAYER points
 }
 
 void Brick::refresh_state(const int HP)

@@ -12,7 +12,7 @@ namespace tove
 
 		/*~Vector2 ()
 		{
-			delete this;
+			delete .........;
 		}*/
 
 		Vector2 operator+(const Vector2* r)
@@ -64,7 +64,7 @@ namespace tove
 
 		/*~Vector2Int ()
 		{
-			delete this;
+			delete ........;
 		}*/
 
 		Vector2Int operator+(Vector2Int* r)
